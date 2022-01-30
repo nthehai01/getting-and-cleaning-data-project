@@ -1,1 +1,1 @@
-# getting-and-cleaning-data-project
+# The Project of Getting and Cleaning Data Course on Coursera
