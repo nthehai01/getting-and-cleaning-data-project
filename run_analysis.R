@@ -20,8 +20,8 @@ stdMesurement <- lapply(select(tidyDataset, -activity), sd)
 
 
 ## 3. Uses descriptive activity names to name the activities in the data set
-activity_labels %<>%  {readLines('./data/activity_labels.txt')} %>% 
-    strsplit(" ") %>% 
+activity_labels <- readLines('./data/activity_labels.txt')
+activity_labels %<>% strsplit(" ") %>% 
     sapply(function(ele) ele[2])
 
 
@@ -35,3 +35,6 @@ grouped <- tidyDataset %>%
     group_by(activity) %>%
     summarise(across(everything(), list(mean)))
 
+
+## Export tidy dataset
+write.csv(tidyDataset,"tidy_dataset.csv", row.names = FALSE)
