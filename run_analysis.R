@@ -19,7 +19,7 @@ y_test <- read.table('./data/test/y_test.txt')
 X_train$activity <- y_train
 X_test$activity <- y_test
 
-## merge datasets
+## Merge datasets
 tidyDataset <- rbind(X_train, X_test)
 
 
