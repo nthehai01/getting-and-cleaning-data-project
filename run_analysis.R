@@ -1,16 +1,25 @@
 library(dplyr)
 
 
+## Read features
+features <- readLines('./data/features.txt')
+features %<>% strsplit(" ") %>% 
+    sapply(function(ele) ele[2])
+
+
 ## Load data
-X_train <- read.table('./data/train/X_train.txt')
+X_train <- read.table('./data/train/X_train.txt', col.names = features)
 y_train <- read.table('./data/train/y_train.txt')
-X_test <- read.table('./data/test/X_test.txt')
+X_test <- read.table('./data/test/X_test.txt', col.names = features)
 y_test <- read.table('./data/test/y_test.txt')
 
 
 ## 1. Merges the training and the test sets to create one data set.
+## Add activity column
 X_train$activity <- y_train
 X_test$activity <- y_test
+
+## merge datasets
 tidyDataset <- rbind(X_train, X_test)
 
 
@@ -33,8 +42,8 @@ tidyDataset$activity <- sapply(tidyDataset$activity, function(ele) activity_labe
 ##    independent tidy data set with the average of each variable for each activity and each subject.
 grouped <- tidyDataset %>% 
     group_by(activity) %>%
-    summarise(across(everything(), list(mean)))
+    summarise_all(mean)
 
 
 ## Export tidy dataset
-write.csv(tidyDataset,"tidy_dataset.csv", row.names = FALSE)
+write.csv(tidyDataset,"tidy_dataset.csv", row.names=FALSE)
