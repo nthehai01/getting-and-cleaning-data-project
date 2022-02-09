@@ -64,4 +64,4 @@ tidyDataset <- df %>%
 
 
 ## Export tidy dataset
-write.csv(tidyDataset,"tidy_dataset.csv", row.names=FALSE)
+write.table(tidyDataset,"tidy_dataset.txt", sep = " ", row.names = FALSE)
